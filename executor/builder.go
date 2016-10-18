@@ -31,10 +31,11 @@ import (
 )
 
 // executorBuilder builds an Executor from a Plan.
-// The InfoSchema must be the same one used in InfoBinder.
+// The InfoSchema must not change during execution.
 type executorBuilder struct {
 	ctx context.Context
 	is  infoschema.InfoSchema
+	// When there is any error during Executor building process, err is set.
 	err error
 }
 
@@ -590,6 +591,7 @@ func (b *executorBuilder) buildIndexScan(v *plan.PhysicalIndexScan) Executor {
 			asName:      v.TableAsName,
 			table:       table,
 			indexPlan:   v,
+			singleRead:  !v.DoubleRead,
 			startTS:     startTS,
 			where:       v.ConditionPBExpr,
 			aggregate:   v.Aggregated,

@@ -125,7 +125,7 @@ type DataSource struct {
 	statisticTable *statistics.Table
 }
 
-// Trim trims child's rows.
+// Trim truncates the number of columns in src rows.
 type Trim struct {
 	baseLogicalPlan
 }

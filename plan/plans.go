@@ -33,6 +33,7 @@ type ShowDDL struct {
 }
 
 // CheckTable is for checking table data.
+// Built from 'admin check table' statement.
 type CheckTable struct {
 	basePlan
 
